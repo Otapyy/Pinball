@@ -6,12 +6,11 @@ namespace UnityStandardAssets.Vehicles.Ball
     public class Ball : MonoBehaviour
     {
         
-    [SerializeField] private float movePower = 10f; // Aumentei um pouco a força
-    [SerializeField] private bool useTorque = false; // Desativei torque para mais controle
+    [SerializeField] private float movePower = 10f; 
+    [SerializeField] private bool useTorque = false; 
     [SerializeField] private float maxAngularVelocity = 10f;
     [SerializeField] private float jumpPower = 5f;
-    [SerializeField] private float stopFriction = 5f; // Novo: desaceleração manual
-
+    [SerializeField] private float stopFriction = 5f;
     private const float k_GroundRayLength = 1.1f;
     private Rigidbody rb;
 
@@ -19,8 +18,8 @@ namespace UnityStandardAssets.Vehicles.Ball
     {
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = maxAngularVelocity;
-        rb.drag = 1.5f; // Novo: Ajuda a desacelerar no ar
-        rb.angularDrag = 2f; // Novo: Evita que role demais
+        rb.drag = 1.5f; 
+        rb.angularDrag = 2f;
     }
 
     public void Move(Vector3 moveDirection, bool jump)
@@ -36,15 +35,15 @@ namespace UnityStandardAssets.Vehicles.Ball
         }
         else
         {
-            // Novo: Reduz a velocidade quando o jogador solta os controles
+           
             rb.velocity = new Vector3(rb.velocity.x * (1 - Time.fixedDeltaTime * stopFriction), rb.velocity.y, rb.velocity.z * (1 - Time.fixedDeltaTime * stopFriction));
         }
 
         if (Physics.Raycast(transform.position, -Vector3.up, k_GroundRayLength) && jump)
         {
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-                }
-            }
+        }
+    }
         }
     }
 
